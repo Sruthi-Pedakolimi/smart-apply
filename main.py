@@ -1,10 +1,12 @@
 import os 
 import json
 from fastapi import FastAPI
-from fastapi import UploadFile
+from fastapi import UploadFile, Form
 from pypdf import PdfReader
 from dotenv import load_dotenv
 from openai import OpenAI
+from fastapi.middleware.cors import CORSMiddleware
+
 
 # system prompt
 SYSTEM_PROMPT = """You are a career expert where you take the uploaded resume file text and job description mentioned and return a structured JSON format 
@@ -15,7 +17,10 @@ SYSTEM_PROMPT = """You are a career expert where you take the uploaded resume fi
                  2. It shouldn't be generic. Personalize it based on the resume and job description and company
                  3. No dashes, double dashes or colons ("--", "-", ";", ":")
                  4. Use simple natural english
-                 
+                 5. Strict Use of resume experience that is related and don't create something new which is not in my resume. 
+                 Understand my experience projects etc and then u can create from that but not totally new experience
+                 6. While calculating the ATS score make sure you check whether the JD matches the Resume uploaded based on below criteria
+                 *** score based on: keywords 30%, skills 30%, experience 25%, education 15%
                  IMPORTANT: You should only return the JSON structure mentioned, nothing else.
                  """
 
@@ -28,9 +33,16 @@ base_url = os.getenv("OPENAI_BASE_URL")
 app = FastAPI()
 client = OpenAI(api_key=api_key, base_url=base_url)
 
+# origins for CORS
+origins = [
+    "http://localhost:5173",
+     "http://localhost",
+]
+
+app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["GET", "POST", "PUT"], allow_headers=["Authorization", "Content-Type"])
 # get data will take the inputs of the file and job description and returns the dict contains ats_score and cover_letter
 @app.post('/info')
-async def get_data(file: UploadFile, job: str):
+async def get_data(file: UploadFile, job: str = Form(...)):
     """
         It accepts the single pdf file and returns the content
     """

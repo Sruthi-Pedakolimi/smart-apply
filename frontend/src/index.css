@@ -1,0 +1,75 @@
+.app-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100vh;
+
+}
+
+.main-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.app-heading{
+  padding: 10px;
+  font-family: Arial;
+  font-style: bold;
+  font-size: 30px;
+}
+
+.label-heading{
+  margin-right: 20px;
+  margin-bottom: 10px;
+  font-family: Arial;
+  font-size: 18px;
+}
+
+.file-input{
+  margin: 10px;
+   color: #4b5563;
+   font-size: 14px;
+}
+
+.file-input::file-selector-button{
+  background-color: #10b981;
+   border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 12px;
+  transition: background 0.2s;
+}
+
+.file-input::file-selector-button:hover{
+    background-color: #059669;
+}
+
+
+.text-input{
+  font-size: 14px;
+  font-family: Arial;
+  border-radius: 5px;
+  height: 100px;
+  width: 100%;
+}
+
+.job-summary-container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.submit-container{
+text-align: center;
+}
+.submit-btn{
+  border-radius: 5px;
+  padding: 5px;
+  width: 50%;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
