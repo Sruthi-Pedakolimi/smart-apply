@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import "./index.css"
 
 const SmartApply = () => {
   const [file, updateFile] = useState("")
@@ -51,11 +51,11 @@ const SmartApply = () => {
 
   const formatOutput = () => {
       return (
-        <div>
+        <>
           <label className="label-heading">Output</label>
-          <p>{ats_score}</p>
-          <p>{cover_letter}</p>
-       </div> 
+          <p className="ats-score">ATS Score: {ats_score}</p>
+          <p className="cover-letter">{cover_letter}</p>
+       </> 
       )
   }
 
@@ -76,9 +76,11 @@ const SmartApply = () => {
           Submit
        </button>
        </div>
-        {isLoading && <p>Generating.....</p>}
-        {error && <p>{error}</p>} 
-        {cover_letter && formatOutput()}   
+       <div className="output-container">
+        {isLoading && <p className="generating">Generating.....</p>}
+        {error && <p className="error">{error}</p>} 
+        {cover_letter && formatOutput()} 
+        </div>  
     </div>
     </div>
 
